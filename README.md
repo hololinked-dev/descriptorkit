@@ -1,5 +1,7 @@
 # descriptorkit
 
+[![CD Pipeline](https://github.com/hololinked-dev/descriptorkit/actions/workflows/cd-pipeline.yml/badge.svg)](https://github.com/hololinked-dev/descriptorkit/actions/workflows/cd-pipeline.yml)
+
 Typed, validated and observable class attributes built on Python descriptors.
 
 `descriptorkit` is derived from [HoloViz param](https://github.com/holoviz/param) and is maintained as the
