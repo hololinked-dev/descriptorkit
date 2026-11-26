@@ -1,0 +1,57 @@
+name: CD Pipeline
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  test_publish_package:
+    name: publish package to test pypi
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: build package
+        run: uv build
+
+      - name: publish package
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  publish:
+    name: publish package to pypi
+    runs-on: ubuntu-latest
+    needs: test_publish_package
+    if: ${{ !github.event.release.prerelease }}
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: build
+        run: uv build
+
+      - name: publish
+        uses: pypa/gh-action-pypi-publish@release/v1
