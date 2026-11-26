@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["descriptorkit"]
+
+[project]
+name = "descriptorkit"
+version = "1.0.0"
+authors = [
+    {name = "Vignesh Vaidyanathan", email = "info@hololinked.dev"},
+    {name = "HoloViz", email = "developers@holoviz.org"},
+]
+description = "Typed, validated and observable class attributes built on Python descriptors, derived from HoloViz param"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 5 - Production/Stable",
+]
+keywords = ["descriptors", "parameters", "validation", "attributes", "param"]
+dependencies = []
+
+[project.optional-dependencies]
+numpy = ["numpy>=2.0.0"]
+pandas = ["pandas>=2.2.0"]
+all = ["descriptorkit[numpy,pandas]"]
+
+[project.urls]
+Repository = "https://github.com/hololinked-dev/descriptorkit"
+Issues = "https://github.com/hololinked-dev/descriptorkit/issues"
+
+[dependency-groups]
+dev = [
+    "ruff==0.14.2",
+    "pre-commit>=4.5.0",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# inherited from upstream param, to be tightened incrementally
+ignore = [
+    "E402",
+    "E711",
+    "E713",
+    "E721",
+    "E722",
+    "E731",
+    "F401",
+    "F403",
+    "F405",
+    "F541",
+    "F841",
+]
